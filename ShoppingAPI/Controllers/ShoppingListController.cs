@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoppingAPI.DTOs.ShoppingList;
 using ShoppingAPI.Helpers;
@@ -7,6 +8,7 @@ using ShoppingAPI.Services.Contracts;
 
 namespace ShoppingAPI.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[Controller]")]
     public class ShoppingListController : ControllerBase

@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoppingAPI.DTOs.Role;
 using ShoppingAPI.Helpers;
@@ -6,7 +7,7 @@ using ShoppingAPI.Services.Contracts;
 
 namespace ShoppingAPI.Controllers
 {
-
+    [Authorize]
     [ApiController]
     [Route("api/[Controller]")]
     public class RoleController : ControllerBase
@@ -35,6 +36,7 @@ namespace ShoppingAPI.Controllers
             return response.Succeeded is false ? NotFound(response) : Ok(response);
         }
 
+        [Authorize(Roles = "ADMIN")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] RoleCreationDTO role)
         {

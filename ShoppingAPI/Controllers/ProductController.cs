@@ -12,7 +12,7 @@ using ShoppingAPI.Services.Contracts;
 
 namespace ShoppingAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/[Controller]")]
     public class ProductController : ControllerBase
@@ -40,7 +40,7 @@ namespace ShoppingAPI.Controllers
             return response.Succeeded is false ? NotFound(response) : Ok(response);          
         }
 
-        //[Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = "ADMIN")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] ProductCreationDTO product)
         {
@@ -65,6 +65,7 @@ namespace ShoppingAPI.Controllers
             
         }
 
+        [Authorize(Roles = "ADMIN")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(Guid id, [FromBody] ProductCreationDTO product)
         {
@@ -87,6 +88,7 @@ namespace ShoppingAPI.Controllers
             return response.Succeeded == false ? NotFound(response) : NoContent();
         }
 
+        [Authorize(Roles = "ADMIN")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {

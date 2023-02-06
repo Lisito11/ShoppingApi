@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoppingAPI.DTOs.Brand;
 using ShoppingAPI.Helpers;
@@ -7,7 +8,7 @@ using ShoppingAPI.Services.Contracts;
 
 namespace ShoppingAPI.Controllers
 {
-
+    [Authorize]
     [ApiController]
     [Route("api/[Controller]")]
     public class BrandController : ControllerBase
@@ -36,6 +37,7 @@ namespace ShoppingAPI.Controllers
             return response.Succeeded is false ? NotFound(response) : Ok(response);
         }
 
+        [Authorize(Roles = "ADMIN")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] BrandCreationDTO brand)
         {
@@ -60,6 +62,7 @@ namespace ShoppingAPI.Controllers
 
         }
 
+        [Authorize(Roles = "ADMIN")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(Guid id, [FromBody] BrandCreationDTO brand)
         {
@@ -82,6 +85,7 @@ namespace ShoppingAPI.Controllers
             return response.Succeeded == false ? NotFound(response) : NoContent();
         }
 
+        [Authorize(Roles = "ADMIN")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {

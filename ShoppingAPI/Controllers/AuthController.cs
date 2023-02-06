@@ -12,6 +12,7 @@ using ShoppingAPI.Helpers;
 
 namespace ShoppingAPI.Controllers
 {
+    [AllowAnonymous]
     [ApiController]
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
@@ -25,7 +26,6 @@ namespace ShoppingAPI.Controllers
 
         [HttpPost]
         [Route("login")]
-        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] UserLoginDTO userLogin)
         {
             ResponseBase<UserAuthDTO> response = new ResponseBase<UserAuthDTO>();

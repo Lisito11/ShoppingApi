@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoppingAPI.DTOs.SuperMarket;
 using ShoppingAPI.Helpers;
@@ -6,6 +7,7 @@ using ShoppingAPI.Services.Contracts;
 
 namespace ShoppingAPI.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[Controller]")]
     public class SuperMarketController : ControllerBase
@@ -34,6 +36,7 @@ namespace ShoppingAPI.Controllers
             return response.Succeeded is false ? NotFound(response) : Ok(response);
         }
 
+        [Authorize(Roles = "ADMIN")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] SuperMarketCreationDTO superMarket)
         {
@@ -58,6 +61,7 @@ namespace ShoppingAPI.Controllers
 
         }
 
+        [Authorize(Roles = "ADMIN")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(Guid id, [FromBody] SuperMarketCreationDTO superMarket)
         {
@@ -80,6 +84,7 @@ namespace ShoppingAPI.Controllers
             return response.Succeeded is false ? NotFound(response) : NoContent();
         }
 
+        [Authorize(Roles = "ADMIN")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
